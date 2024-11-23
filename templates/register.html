@@ -1,0 +1,49 @@
+{% extends "base.html" %}  <!-- Расширение базового шаблона -->
+
+{% block title %}Регистрация{% endblock %}  <!-- Заголовок страницы -->
+
+{% block content %}
+  <h2>Регистрация</h2>  <!-- Заголовок формы регистрации -->
+
+  <form method="POST">  <!-- Форма для отправки данных методом POST -->
+    {{ form.hidden_tag() }}  <!-- Скрытое поле для защиты от CSRF-атак -->
+
+    <div class="form-group">  <!-- Группа для поля имени пользователя -->
+      {{ form.username.label(class="form-label") }}  <!-- Метка для поля имени пользователя -->
+      {{ form.username(class="form-control") }}  <!-- Поле ввода для имени пользователя -->
+      {% for error in form.username.errors %}  <!-- Цикл для отображения ошибок валидации -->
+        <span class="text-danger">{{ error }}</span>  <!-- Отображение ошибки в красном цвете -->
+      {% endfor %}
+    </div>
+
+    <div class="form-group">  <!-- Группа для поля email -->
+      {{ form.email.label(class="form-label") }}  <!-- Метка для поля email -->
+      {{ form.email(class="form-control") }}  <!-- Поле ввода для email -->
+      {% for error in form.email.errors %}  <!-- Цикл для отображения ошибок валидации -->
+        <span class="text-danger">{{ error }}</span>  <!-- Отображение ошибки в красном цвете -->
+      {% endfor %}
+    </div>
+
+    <div class="form-group">  <!-- Группа для поля пароля -->
+      {{ form.password.label(class="form-label") }}  <!-- Метка для поля пароля -->
+      {{ form.password(class="form-control") }}  <!-- Поле ввода для пароля -->
+      {% for error in form.password.errors %}  <!-- Цикл для отображения ошибок валидации -->
+        <span class="text-danger">{{ error }}</span>  <!-- Отображение ошибки в красном цвете -->
+      {% endfor %}
+    </div>
+
+    <div class="form-group">  <!-- Группа для поля подтверждения пароля -->
+      {{ form.confirm_password.label(class="form-label") }}  <!-- Метка для поля подтверждения пароля -->
+      {{ form.confirm_password(class="form-control") }}  <!-- Поле ввода для подтверждения пароля -->
+      {% for error in form.confirm_password.errors %}  <!-- Цикл для отображения ошибок валидации -->
+        <span class="text-danger">{{ error }}</span>  <!-- Отображение ошибки в красном цвете -->
+      {% endfor %}
+    </div>
+
+    {{ form.submit(class="btn btn-primary") }}  <!-- Кнопка отправки формы с классом Bootstrap для стилизации -->
+
+  </form>
+
+  <p class="mt-3">Уже есть аккаунт? <a href="{{ url_for('login') }}">Войдите</a></p>
+  <!-- Ссылка на страницу входа для уже зарегистрированных пользователей -->
+{% endblock %}

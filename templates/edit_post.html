@@ -1,0 +1,26 @@
+{% extends "base.html" %}  <!-- Расширение базового шаблона -->
+
+{% block title %}Редактировать пост{% endblock %}  <!-- Заголовок страницы редактирования поста -->
+
+{% block content %}
+  <h2>Редактировать пост</h2>  <!-- Заголовок секции редактирования поста -->
+
+  <form method="POST">  <!-- Форма для отправки данных методом POST -->
+    {{ form.hidden_tag() }}  <!-- Скрытое поле для защиты от CSRF-атак -->
+
+    <div class="form-group">  <!-- Группа для поля заголовка поста -->
+      {{ form.title.label(class='form-label') }}  <!-- Метка для поля заголовка -->
+      {{ form.title(class='form-control') }}  <!-- Поле ввода для заголовка поста -->
+    </div>
+
+    <div class="form-group">  <!-- Группа для поля содержимого поста -->
+      {{ form.content.label(class='form-label') }}  <!-- Метка для поля содержимого -->
+      {{ form.content(class='form-control') }}  <!-- Поле ввода для содержимого поста -->
+    </div>
+
+    {{ form.submit(class='btn btn-primary') }}  <!-- Кнопка отправки формы с классом Bootstrap для стилизации -->
+
+    <a href="{{ url_for('post_detail', post_id=post.id) }}" class="btn btn-secondary">Отмена</a>
+    <!-- Ссылка для отмены редактирования и возврата к детальной странице поста -->
+  </form>
+{% endblock %}

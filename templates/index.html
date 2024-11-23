@@ -1,0 +1,30 @@
+{% extends "base.html" %}  <!-- Расширение базового шаблона -->
+
+{% block title %}Главная страница{% endblock %}  <!-- Заголовок страницы -->
+
+{% block content %}
+  <h1>Все посты</h1>  <!-- Заголовок секции с постами -->
+
+  <a href="{{ url_for('create_post') }}" class="btn btn-success">Создать новый пост</a>
+  <!-- Кнопка для создания нового поста -->
+
+  <ul class="list-group mt-3">  <!-- Список для отображения постов -->
+    {% for post in posts %}  <!-- Цикл по всем постам -->
+      <li class="list-group-item">  <!-- Элемент списка для каждого поста -->
+        <div class="d-flex align-items-start">  <!-- Flex-контейнер для выравнивания аватара и текста -->
+          <img src="{{ url_for('static', filename='avatars/' + post.author.avatar) }}" alt="Аватар"
+               class="rounded-circle" style="width: 40px; height: 40px; margin-right: 10px;">
+          <!-- Аватар автора поста -->
+          <div>
+            <h5><a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a></h5>
+            <!-- Заголовок поста, который является ссылкой на его детальную страницу -->
+            <p class="text-muted">Автор: {{ post.author.username }}</p>  <!-- Имя автора поста -->
+          </div>
+        </div>
+        <p>{{ post.content[:100] }}...</p> <!-- Краткое содержание поста (первые 100 символов) -->
+      </li>
+    {% else %}
+      <li class="list-group-item">Нет доступных постов.</li>  <!-- Сообщение, если нет доступных постов -->
+    {% endfor %}
+  </ul>
+{% endblock %}

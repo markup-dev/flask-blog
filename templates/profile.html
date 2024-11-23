@@ -1,0 +1,33 @@
+{% extends "base.html" %}  <!-- Расширение базового шаблона -->
+
+{% block title %}Профиль{% endblock %}  <!-- Заголовок страницы -->
+
+{% block content %}
+  <h2>Профиль пользователя</h2>  <!-- Заголовок секции профиля -->
+
+  <form method="POST" enctype="multipart/form-data">  <!-- Форма для редактирования профиля -->
+    {{ form.hidden_tag() }}  <!-- Скрытое поле для защиты от CSRF-атак -->
+
+    <div class="form-group">  <!-- Группа для поля имени пользователя -->
+      {{ form.username.label(class="form-label") }}  <!-- Метка для поля имени пользователя -->
+      {{ form.username(class="form-control", value=current_user.username) }}
+      <!-- Поле ввода для имени пользователя с предзаполненным значением -->
+    </div>
+
+    <h3>Ваш аватар:</h3>  <!-- Заголовок для секции аватара -->
+    <img src="{{ url_for('static', filename='avatars/' + current_user.avatar) }}" alt=""
+         style="width:100px; height:auto;">  <!-- Отображение текущего аватара пользователя -->
+
+    <div class="form-group">  <!-- Группа для поля загрузки нового аватара -->
+      {{ form.avatar.label(class="form-label") }}  <!-- Метка для поля загрузки аватара -->
+      {{ form.avatar(class="form-control-file") }}  <!-- Поле ввода для загрузки файла (аватара) -->
+    </div>
+
+    {{ form.submit(class="btn btn-primary") }}  <!-- Кнопка отправки формы для обновления профиля -->
+  </form>
+
+  <form action="{{ url_for('delete_profile') }}" method="POST" style="margin-top: 20px;">
+    <!-- Форма для удаления профиля -->
+    <button type="submit" class="btn btn-danger">Удалить профиль</button>  <!-- Кнопка удаления профиля -->
+  </form>
+{% endblock %}
